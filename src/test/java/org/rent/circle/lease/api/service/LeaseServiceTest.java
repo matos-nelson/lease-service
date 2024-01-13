@@ -29,6 +29,7 @@ public class LeaseServiceTest {
     @Test
     public void saveLease_WhenCalled_ShouldSaveLease() {
         // Arrange
+        String managerId = "abc123";
         Lease lease = new Lease();
         lease.setId(100L);
 
@@ -38,7 +39,7 @@ public class LeaseServiceTest {
         when(leaseMapper.toModel(createLease)).thenReturn(lease);
 
         // Act
-        Long result = leaseService.saveLease(createLease);
+        Long result = leaseService.saveLease(managerId, createLease);
 
         // Assert
         assertEquals(lease.getId(), result);

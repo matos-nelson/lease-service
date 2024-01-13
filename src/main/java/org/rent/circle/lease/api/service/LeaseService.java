@@ -18,8 +18,9 @@ public class LeaseService {
     private final LeaseMapper leaseMapper;
 
     @Transactional
-    public Long saveLease(CreateLeaseDto createLeaseInfo) {
+    public Long saveLease(String managerId, CreateLeaseDto createLeaseInfo) {
         Lease lease = leaseMapper.toModel(createLeaseInfo);
+        lease.setManagerId(managerId);
 
         leaseRepository.persist(lease);
         return lease.getId();

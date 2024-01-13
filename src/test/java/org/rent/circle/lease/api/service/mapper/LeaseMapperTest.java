@@ -35,7 +35,7 @@ public class LeaseMapperTest {
     public void toModel_WhenGivenACreateLeaseDto_ShouldMap() {
         // Arrange
         CreateLeaseDto createLeaseDto = CreateLeaseDto.builder()
-            .managerId(1L)
+            .managerId("abc123")
             .ownerId(2L)
             .propertyId(3L)
             .startDate(LocalDate.now())
@@ -68,7 +68,7 @@ public class LeaseMapperTest {
             .build();
 
         CreateLeaseDto createLeaseDto = CreateLeaseDto.builder()
-            .managerId(1L)
+            .managerId("abc123")
             .ownerId(2L)
             .propertyId(3L)
             .startDate(LocalDate.now())

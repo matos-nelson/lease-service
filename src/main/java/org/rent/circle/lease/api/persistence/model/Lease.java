@@ -30,7 +30,7 @@ public class Lease extends BaseModel {
     private Long id;
 
     @Column(name = "manager_id")
-    private Long managerId;
+    private String managerId;
 
     @Column(name = "owner_id")
     private Long ownerId;
