@@ -1,4 +1,4 @@
-package service.mapper;
+package org.rent.circle.lease.api.service.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
 import org.rent.circle.lease.api.dto.CreateTenantDto;
 import org.rent.circle.lease.api.persistence.model.Lease;
-import org.rent.circle.lease.api.service.mapper.LeaseMapper;
 
 @QuarkusTest
 public class LeaseMapperTest {
