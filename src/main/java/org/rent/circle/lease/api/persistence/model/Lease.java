@@ -50,8 +50,8 @@ public class Lease extends BaseModel {
     @Column(name = "security_deposit_held")
     private BigDecimal securityDepositHeld;
 
-    @Column(name = "pet_deposit")
-    private BigDecimal petDeposit;
+    @Column(name = "pet_deposit_held")
+    private BigDecimal petDepositHeld;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "lease_id", referencedColumnName = "id", nullable = false)

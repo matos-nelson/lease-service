@@ -35,28 +35,26 @@ public class LeaseMapperTest {
     public void toModel_WhenGivenACreateLeaseDto_ShouldMap() {
         // Arrange
         CreateLeaseDto createLeaseDto = CreateLeaseDto.builder()
-            .managerId("abc123")
             .ownerId(2L)
             .propertyId(3L)
             .startDate(LocalDate.now())
             .endDate(LocalDate.now())
             .monthlyRent(BigDecimal.ONE)
             .securityDepositHeld(BigDecimal.ZERO)
-            .petDeposit(BigDecimal.TEN)
+            .petDepositHeld(BigDecimal.TEN)
             .build();
 
         // Act
         Lease result = leaseMapper.toModel(createLeaseDto);
 
         // Assert
-        assertEquals(createLeaseDto.getManagerId(), result.getManagerId());
         assertEquals(createLeaseDto.getOwnerId(), result.getOwnerId());
         assertEquals(createLeaseDto.getPropertyId(), result.getPropertyId());
         assertEquals(createLeaseDto.getStartDate(), result.getStartDate());
         assertEquals(createLeaseDto.getEndDate(), result.getEndDate());
         assertEquals(createLeaseDto.getMonthlyRent(), result.getMonthlyRent());
         assertEquals(createLeaseDto.getSecurityDepositHeld(), result.getSecurityDepositHeld());
-        assertEquals(createLeaseDto.getPetDeposit(), result.getPetDeposit());
+        assertEquals(createLeaseDto.getPetDepositHeld(), result.getPetDepositHeld());
     }
 
     @Test
@@ -68,14 +66,13 @@ public class LeaseMapperTest {
             .build();
 
         CreateLeaseDto createLeaseDto = CreateLeaseDto.builder()
-            .managerId("abc123")
             .ownerId(2L)
             .propertyId(3L)
             .startDate(LocalDate.now())
             .endDate(LocalDate.now())
             .monthlyRent(BigDecimal.ONE)
             .securityDepositHeld(BigDecimal.ZERO)
-            .petDeposit(BigDecimal.TEN)
+            .petDepositHeld(BigDecimal.TEN)
             .tenants(Collections.singletonList(createTenantDto))
             .build();
 
@@ -83,14 +80,13 @@ public class LeaseMapperTest {
         Lease result = leaseMapper.toModel(createLeaseDto);
 
         // Assert
-        assertEquals(createLeaseDto.getManagerId(), result.getManagerId());
         assertEquals(createLeaseDto.getOwnerId(), result.getOwnerId());
         assertEquals(createLeaseDto.getPropertyId(), result.getPropertyId());
         assertEquals(createLeaseDto.getStartDate(), result.getStartDate());
         assertEquals(createLeaseDto.getEndDate(), result.getEndDate());
         assertEquals(createLeaseDto.getMonthlyRent(), result.getMonthlyRent());
         assertEquals(createLeaseDto.getSecurityDepositHeld(), result.getSecurityDepositHeld());
-        assertEquals(createLeaseDto.getPetDeposit(), result.getPetDeposit());
+        assertEquals(createLeaseDto.getPetDepositHeld(), result.getPetDepositHeld());
         assertEquals(createTenantDto.getResidentId(), result.getTenants().get(0).getResidentId());
         assertEquals(createTenantDto.isPrimary(), result.getTenants().get(0).isPrimary());
     }

@@ -1,6 +1,5 @@
 package org.rent.circle.lease.api.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -18,10 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateLeaseDto {
-
-    @NotNull
-    @NotBlank
-    private String managerId;
 
     @NotNull
     private Long ownerId;
@@ -42,7 +37,7 @@ public class CreateLeaseDto {
     private BigDecimal securityDepositHeld;
 
     @NotNull
-    private BigDecimal petDeposit;
+    private BigDecimal petDepositHeld;
 
     @NotEmpty
     private List<CreateTenantDto> tenants;

@@ -20,7 +20,7 @@ public class CreateLeaseDtoTest {
         beanTester.addExcludedField("endDate");
         beanTester.addExcludedField("monthlyRent");
         beanTester.addExcludedField("securityDepositHeld");
-        beanTester.addExcludedField("petDeposit");
+        beanTester.addExcludedField("petDepositHeld");
 
         // Act
         beanTester.testBean(CreateLeaseDto.class);
@@ -37,13 +37,13 @@ public class CreateLeaseDtoTest {
         lease.setEndDate(LocalDate.now());
         lease.setMonthlyRent(BigDecimal.ONE);
         lease.setSecurityDepositHeld(BigDecimal.TEN);
-        lease.setPetDeposit(BigDecimal.ZERO);
+        lease.setPetDepositHeld(BigDecimal.ZERO);
 
         // Assert
         assertNotNull(lease.getStartDate());
         assertNotNull(lease.getEndDate());
         assertEquals(BigDecimal.ONE, lease.getMonthlyRent());
         assertEquals(BigDecimal.TEN, lease.getSecurityDepositHeld());
-        assertEquals(BigDecimal.ZERO, lease.getPetDeposit());
+        assertEquals(BigDecimal.ZERO, lease.getPetDepositHeld());
     }
 }
