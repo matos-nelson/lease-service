@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: lease-container
+services:
+  app:
+    image: 'quarkus/lease-service'
+    container_name: "lease-app"
+    ports:
+      - '8080:8080'
+    links:
+      - "lease-db"
+    environment:
+      - DB_USER=root
+      - DB_PWD=root
+      - DB_URL=jdbc:mysql://mysql-db/lease
+
+  lease-db:
+    image: mysql:8.0
+    container_name: "lease-db"
+    environment:
+      - MYSQL_DATABASE=lease
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - lease:/var/lib/mysql
+      - ./../../../db/sql/create_lease_schemas.sql:/docker-entrypoint-initdb.d/create_lease_schemas.sql
+volumes:
+  lease:
+    driver: local
