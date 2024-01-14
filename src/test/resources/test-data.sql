@@ -10,4 +10,4 @@ INSERT INTO LEASE(id, manager_id, owner_id, property_id, start_date, end_date, m
 VALUES (200, 'test_user', 600, 700, '2020-10-01', '2021-10-01', 1000, 1500, 250);
 
 INSERT INTO TENANT(id, lease_id, resident_id, is_primary)
-VALUES(800, 101, 900, true);
+VALUES(800, 200, 900, true);

@@ -78,6 +78,42 @@ public class LeaseResourceTest {
             .body(is("1"));
     }
 
+    @Test
+    public void GET_WhenLeaseCantBeFound_ShouldReturnNoContent() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/123")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void GET_WhenLeaseIsFound_ShouldReturnLease() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/100")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body("id", is(100),
+                "ownerId", is(200),
+                "propertyId", is(300),
+                "startDate", is("2020-10-01"),
+                "endDate", is("2021-10-01"),
+                "monthlyRent", is(1000.0F),
+                "securityDepositHeld", is(1500.0F),
+                "petDepositHeld", is(250.0F),
+                "tenants[0].residentId", is(500),
+                "tenants[0].primary", is(true));
+    }
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
     @TestSecurity(user = "new_user")
