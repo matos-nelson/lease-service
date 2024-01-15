@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
 import org.rent.circle.lease.api.dto.LeaseDto;
@@ -70,7 +72,7 @@ public class LeaseServiceTest {
         String managerId = "abc123";
 
         Lease lease = new Lease();
-        lease.setId(100L);
+        lease.setId(leaseId);
         lease.setManagerId(managerId);
 
         LeaseDto leaseDto = LeaseDto.builder()
@@ -85,5 +87,31 @@ public class LeaseServiceTest {
 
         // Assert
         assertEquals(leaseDto, result);
+    }
+
+    @Test
+    public void getLeases_WhenCalled_ShouldReturnLeases() {
+        // Arrange
+        String managerId = "abc123";
+        int page = 0;
+        int pageSize = 10;
+
+        Lease lease = new Lease();
+        lease.setId(100L);
+        lease.setManagerId(managerId);
+
+        List<Lease> leases = Collections.singletonList(lease);
+        LeaseDto leaseDto = LeaseDto.builder()
+            .id(lease.getId())
+            .build();
+
+        when(leaseRepository.findLeases(managerId, page, pageSize)).thenReturn(leases);
+        when(leaseMapper.toDtoList(leases)).thenReturn(Collections.singletonList(leaseDto));
+
+        // Act
+        List<LeaseDto> results = leaseService.getLeases(managerId, page, pageSize);
+
+        // Assert
+        assertEquals(leaseDto, results.get(0));
     }
 }

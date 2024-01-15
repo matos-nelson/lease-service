@@ -2,6 +2,7 @@ package org.rent.circle.lease.api.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
@@ -35,5 +36,10 @@ public class LeaseService {
         }
 
         return leaseMapper.toDto(lease);
+    }
+
+    public List<LeaseDto> getLeases(String managerId, int page, int pageSize) {
+        List<Lease> leases = leaseRepository.findLeases(managerId, page, pageSize);
+        return leaseMapper.toDtoList(leases);
     }
 }

@@ -1,5 +1,6 @@
 package org.rent.circle.lease.api.service.mapper;
 
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
@@ -12,4 +13,6 @@ public interface LeaseMapper {
     Lease toModel(CreateLeaseDto createLease);
 
     LeaseDto toDto(Lease lease);
+
+    List<LeaseDto> toDtoList(List<Lease> leases);
 }

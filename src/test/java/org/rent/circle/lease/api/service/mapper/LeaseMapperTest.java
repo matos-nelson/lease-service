@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
 import org.rent.circle.lease.api.dto.CreateTenantDto;
@@ -151,5 +152,55 @@ public class LeaseMapperTest {
         // Assert
         assertEquals(tenant.getResidentId(), result.getTenants().get(0).getResidentId());
         assertEquals(tenant.isPrimary(), result.getTenants().get(0).isPrimary());
+    }
+
+    @Test
+    public void toDtoList_WhenGivenValidLeases_ShouldMap() {
+        // Arrange
+        Lease lease = new Lease();
+        lease.setId(1L);
+        lease.setManagerId("abc123");
+        lease.setOwnerId(2L);
+        lease.setPropertyId(3L);
+        lease.setStartDate(LocalDate.now());
+        lease.setEndDate(LocalDate.now());
+        lease.setMonthlyRent(BigDecimal.ONE);
+        lease.setSecurityDepositHeld(BigDecimal.ZERO);
+        lease.setPetDepositHeld(BigDecimal.TEN);
+
+        // Act
+        List<LeaseDto> result = leaseMapper.toDtoList(Collections.singletonList(lease));
+
+        // Assert
+        assertEquals(lease.getId(), result.get(0).getId());
+        assertEquals(lease.getOwnerId(), result.get(0).getOwnerId());
+        assertEquals(lease.getPropertyId(), result.get(0).getPropertyId());
+        assertEquals(lease.getStartDate(), result.get(0).getStartDate());
+        assertEquals(lease.getEndDate(), result.get(0).getEndDate());
+        assertEquals(lease.getMonthlyRent(), result.get(0).getMonthlyRent());
+        assertEquals(lease.getSecurityDepositHeld(), result.get(0).getSecurityDepositHeld());
+        assertEquals(lease.getPetDepositHeld(), result.get(0).getPetDepositHeld());
+        assertNull(result.get(0).getTenants());
+    }
+
+    @Test
+    public void toDtoList_WhenGivenValidLeasesWithTenants_ShouldMap() {
+        // Arrange
+        Lease lease = new Lease();
+        lease.setId(1L);
+
+        Tenant tenant = new Tenant();
+        tenant.setId(5L);
+        tenant.setLeaseId(lease.getId());
+        tenant.setPrimary(true);
+
+        lease.setTenants(Collections.singletonList(tenant));
+
+        // Act
+        List<LeaseDto> result = leaseMapper.toDtoList(Collections.singletonList(lease));
+
+        // Assert
+        assertEquals(tenant.getResidentId(), result.get(0).getTenants().get(0).getResidentId());
+        assertEquals(tenant.isPrimary(), result.get(0).getTenants().get(0).isPrimary());
     }
 }
