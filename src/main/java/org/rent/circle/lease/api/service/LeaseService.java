@@ -2,9 +2,11 @@ package org.rent.circle.lease.api.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.lease.api.dto.CreateLeaseDto;
+import org.rent.circle.lease.api.dto.LeaseDto;
 import org.rent.circle.lease.api.persistence.model.Lease;
 import org.rent.circle.lease.api.persistence.repository.LeaseRepository;
 import org.rent.circle.lease.api.service.mapper.LeaseMapper;
@@ -24,5 +26,20 @@ public class LeaseService {
 
         leaseRepository.persist(lease);
         return lease.getId();
+    }
+
+    public LeaseDto getLease(Long leaseId, String managerId) {
+        Lease lease = leaseRepository.findByIdAndManagerId(leaseId, managerId);
+        if (lease == null) {
+            log.info("Could Not Find Lease With Id: {}", leaseId);
+            return null;
+        }
+
+        return leaseMapper.toDto(lease);
+    }
+
+    public List<LeaseDto> getLeases(String managerId, int page, int pageSize) {
+        List<Lease> leases = leaseRepository.findLeases(managerId, page, pageSize);
+        return leaseMapper.toDtoList(leases);
     }
 }
