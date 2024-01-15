@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS lease (
   security_deposit_held decimal(38, 2) NOT NULL,
   pet_deposit_held decimal(38, 2) NOT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX manager_id_idx (manager_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS tenant (
@@ -18,5 +19,6 @@ CREATE TABLE IF NOT EXISTS tenant (
   resident_id bigint NOT NULL,
   is_primary bool NOT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX lease_id_idx (lease_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
